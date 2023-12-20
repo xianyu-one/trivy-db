@@ -22,6 +22,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Set timestamp
+        id: timestamp
+        run: echo "timestamp=$(date +%Y%m%d%H%M%S)" >> $GITHUB_OUTPUT
+        
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -30,7 +34,8 @@ jobs:
           platforms: linux/arm64,linux/amd64
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/trivy-db:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/trivy-db:$(date +%Y%m%d%H%M%S)
+            ${{ secrets.DOCKERHUB_USERNAME }}/trivy-db:${{ steps.timestamp.outputs.timestamp }}
+        
 
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v3

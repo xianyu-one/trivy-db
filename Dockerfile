@@ -1,8 +1,5 @@
 FROM debian:12 AS builder
 
-ENV http_proxy=http://10.233.0.1:7890
-ENV https_proxy=http://10.233.0.1:7890
-
 COPY ./init.sh /init.sh
 
 RUN chmod +x /init.sh && /init.sh && \

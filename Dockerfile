@@ -13,4 +13,4 @@ WORKDIR /app
 
 COPY --from=builder /root/.cache/trivy/db /app/db
 
-ENTRYPOINT mkdir -p /app/release && cp /app/db/* /app/release/ && chmod 644 /app/release/*
+ENTRYPOINT mkdir -p /app/release && cp /app/db/* /app/release/ && chmod 777 /app/release/*
